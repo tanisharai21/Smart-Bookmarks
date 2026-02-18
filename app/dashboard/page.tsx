@@ -42,41 +42,36 @@ export default async function DashboardPage() {
   const initialBookmarks: Bookmark[] = bookmarks ?? [];
 
   return (
-    <div className="min-h-screen bg-ink-950 bg-grid relative">
-      {/* Ambient background glow */}
-      <div className="fixed inset-0 bg-radial-glow pointer-events-none z-0" />
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-accent/3 rounded-full blur-3xl pointer-events-none z-0" />
+    <div className="min-h-screen bg-gray-100">
+    <Navbar user={user} />
 
-      {/* Navbar */}
-      <Navbar user={user} />
-
-      {/* Main content */}
-      <main className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 py-8">
-        {/* Page header */}
-        <div className="mb-8 animate-in" style={{ animationDelay: "0.1s" }}>
-          <h1 className="font-display text-3xl font-bold text-gradient mb-1">
+    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+      <div className="bg-white shadow-xl rounded-2xl p-8 space-y-8">
+        
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-1">
             My Bookmarks
           </h1>
-          <p className="text-slate-500 text-sm">
+          <p className="text-gray-500 text-sm">
             {initialBookmarks.length === 0
               ? "No bookmarks yet — add your first one below"
-              : `${initialBookmarks.length} bookmark${initialBookmarks.length !== 1 ? "s" : ""} saved`}
+              : `${initialBookmarks.length} bookmark${
+                  initialBookmarks.length !== 1 ? "s" : ""
+                } saved`}
           </p>
         </div>
 
-        {/* Add bookmark form */}
-        <div className="mb-8 animate-in" style={{ animationDelay: "0.15s" }}>
-          <BookmarkForm userId={user.id} />
-        </div>
+        {/* Add bookmark */}
+        <BookmarkForm userId={user.id} />
 
-        {/* Bookmark list with realtime */}
-        <div className="animate-in" style={{ animationDelay: "0.2s" }}>
-          <BookmarkList
-            initialBookmarks={initialBookmarks}
-            userId={user.id}
-          />
-        </div>
-      </main>
-    </div>
+        {/* Bookmark list */}
+        <BookmarkList
+          initialBookmarks={initialBookmarks}
+          userId={user.id}
+        />
+      </div>
+    </main>
+  </div>
   );
 }
